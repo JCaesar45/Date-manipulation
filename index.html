@@ -1,0 +1,192 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChronoMaster Pro - Advanced Date Manipulation Suite</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-clock"></i>
+                <h1>ChronoMaster Pro</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn-secondary" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn-primary" id="apiStatus">
+                    <i class="fas fa-plug"></i>
+                    <span>API Status</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section card">
+                <h2><i class="fas fa-calendar-alt"></i> Date Input</h2>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="dateInput">Enter Date</label>
+                        <input type="text" id="dateInput" placeholder="March 6 2009 7:30pm EST" 
+                               value="March 6 2009 7:30pm EST">
+                        <span class="input-hint">Format: Month DD YYYY H:MMam/pm TIMEZONE</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="hoursToAdd">Hours to Add</label>
+                        <input type="number" id="hoursToAdd" value="12" min="-8760" max="8760">
+                        <span class="input-hint">Range: -8760 to +8760 (1 year)</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="timezone">Target Timezone</label>
+                        <select id="timezone">
+                            <option value="EST">EST (Eastern Standard Time)</option>
+                            <option value="PST">PST (Pacific Standard Time)</option>
+                            <option value="CST">CST (Central Standard Time)</option>
+                            <option value="MST">MST (Mountain Standard Time)</option>
+                            <option value="UTC">UTC (Coordinated Universal Time)</option>
+                            <option value="GMT">GMT (Greenwich Mean Time)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary btn-large" id="calculateBtn">
+                    <i class="fas fa-calculator"></i>
+                    Calculate New Date
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section card">
+                <h2><i class="fas fa-chart-line"></i> Results</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <i class="fas fa-arrow-right"></i>
+                            <span>Original Date</span>
+                        </div>
+                        <div class="result-value" id="originalDate">--</div>
+                        <div class="result-timestamp" id="originalTimestamp">--</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-header">
+                            <i class="fas fa-plus"></i>
+                            <span>Time Added</span>
+                        </div>
+                        <div class="result-value" id="timeAdded">--</div>
+                        <div class="result-timestamp" id="timeAddedDetails">--</div>
+                    </div>
+                    <div class="result-card primary">
+                        <div class="result-header">
+                            <i class="fas fa-star"></i>
+                            <span>New Date</span>
+                        </div>
+                        <div class="result-value" id="newDate">--</div>
+                        <div class="result-timestamp" id="newTimestamp">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Advanced Features -->
+            <section class="advanced-section card">
+                <h2><i class="fas fa-cogs"></i> Advanced Features</h2>
+                <div class="advanced-grid">
+                    <div class="feature-card">
+                        <h3><i class="fas fa-history"></i> Date History</h3>
+                        <div id="dateHistory" class="history-list">
+                            <p class="empty-history">No calculations yet</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <h3><i class="fas fa-exchange-alt"></i> Timezone Converter</h3>
+                        <div class="timezone-converter">
+                            <select id="sourceTimezone">
+                                <option value="EST">EST</option>
+                                <option value="PST">PST</option>
+                                <option value="CST">CST</option>
+                                <option value="MST">MST</option>
+                                <option value="UTC">UTC</option>
+                            </select>
+                            <i class="fas fa-arrow-right"></i>
+                            <select id="targetTimezone">
+                                <option value="PST">PST</option>
+                                <option value="EST">EST</option>
+                                <option value="CST">CST</option>
+                                <option value="MST">MST</option>
+                                <option value="UTC">UTC</option>
+                            </select>
+                            <button class="btn-secondary" id="convertTimezone">Convert</button>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <h3><i class="fas fa-download"></i> Export Options</h3>
+                        <div class="export-buttons">
+                            <button class="btn-secondary" id="exportJSON">
+                                <i class="fas fa-file-code"></i> JSON
+                            </button>
+                            <button class="btn-secondary" id="exportCSV">
+                                <i class="fas fa-file-csv"></i> CSV
+                            </button>
+                            <button class="btn-secondary" id="exportPDF">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Validation Section -->
+            <section class="validation-section card">
+                <h2><i class="fas fa-check-circle"></i> Validation & Testing</h2>
+                <div class="validation-grid">
+                    <div class="test-suite">
+                        <h3>Automated Tests</h3>
+                        <div id="testResults" class="test-results">
+                            <button class="btn-secondary" id="runTests">
+                                <i class="fas fa-play"></i> Run Test Suite
+                            </button>
+                        </div>
+                    </div>
+                    <div class="validation-status">
+                        <h3>Validation Status</h3>
+                        <div id="validationStatus" class="status-indicator">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Ready for validation</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 ChronoMaster Pro - Advanced Date Manipulation Suite</p>
+                <div class="footer-links">
+                    <a href="#" id="aboutLink">About</a>
+                    <a href="#" id="docsLink">Documentation</a>
+                    <a href="#" id="apiLink">API Reference</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-clock fa-spin"></i>
+            <p>Calculating...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.30.0/date-fns.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
